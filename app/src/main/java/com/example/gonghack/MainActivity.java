@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         WebSettings mws=mwv.getSettings();//Mobile Web Setting
         mws.setJavaScriptEnabled(true);//자바스크립트 허용
         mws.setLoadWithOverviewMode(true);//컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
-
+        mws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mwv.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        mwv.loadUrl("http://www.naver.com");
+        mwv.loadUrl("http://58.233.221.241");
         //
         //
         //

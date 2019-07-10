@@ -5,75 +5,86 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical"
-    android:weightSum="17">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="8"
-        android:gravity="center">
-    <TextView
-        android:id="@+id/viewing_scene"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.2"
         android:gravity="center"
-        android:textSize="28sp"
-        android:text="1번 카메라"/>
+        android:orientation="horizontal">
 
-     <Button
-        android:id="@+id/input_scene"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         android:layout_weight="6"/>
+        <TextView
+            android:id="@+id/viewing_scene"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="거실 카메라"
+            android:textSize="30sp"
+            android:textColor="@color/Titles"/>
 
+        <Button
+            android:id="@+id/input_scene"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:background="@drawable/camicon"/>
     </LinearLayout>
 
     <WebView
         android:id="@+id/WebView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:layout_weight="9.4"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp"/>
 
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="7"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/one"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="74dp"
             android:layout_weight="1"
-            android:text="1번"/>
+            android:background="@drawable/c1"
+            />
         <Button
             android:id="@+id/two"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="74dp"
             android:layout_weight="1"
-            android:text="2번"/>
+            android:background="@drawable/c2"/>
         <Button
             android:id="@+id/three"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="74dp"
             android:layout_weight="1"
-            android:text="3번"/>
+            android:background="@drawable/c3"/>
         <Button
             android:id="@+id/four"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="74dp"
             android:layout_weight="1"
-            android:text="4번"/>
+            android:background="@drawable/c4"/>
         <Button
             android:id="@+id/five"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="74dp"
             android:layout_weight="1"
-            android:text="5번"/>
+            android:background="@drawable/c5"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_weight="0.2"
+        android:gravity="bottom|center"
+        android:padding="2dp"
+        android:text="@Copyright.RiaTech.All rights reserved" />
 </LinearLayout>
