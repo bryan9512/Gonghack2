@@ -41,33 +41,18 @@ public class PopupActivity extends AppCompatActivity {
         String addresses=address.getText().toString();
         String aselected = selected;
 
-
-        //data에 저장
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DBContract.DBEntry.COLUMN_NAME_SELECTED,aselected);
-        contentValues.put(DBContract.DBEntry.COLUMN_NAME_TITLE,titles);
-        contentValues.put(DBContract.DBEntry.COLUMN_NAME_ADDRESS,addresses);
-
-        SQLiteDatabase db = DBHelper.getInstance(this).getWritableDatabase();
-
-        long newRowId = db.insert(DBContract.DBEntry.TABLE_NAME,null,contentValues);
-
-
-        if(newRowId==-1){
-            Toast.makeText(this,"저장에 문제 발생",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(this,selected+"번 카메라값이 변경되었습니다.",Toast.LENGTH_SHORT).show();
-        }
-
-
+        DbOpenHelper mDbOpenHelper = new DbOpenHelper(this);
+        mDbOpenHelper.open();
+        mDbOpenHelper.create();
+        mDbOpenHelper.updateColumn(aselected,titles,addresses);
 
         //데이터 전달하기
         Intent intent = new Intent();
         intent.putExtra("result", titles);
         intent.putExtra("resultaddress",addresses);
-        intent.putExtra("selected",selected);
+        intent.putExtra("selected",aselected);
         Log.d("팝업에서 보냄",title.getText().toString());
+
         setResult(RESULT_OK, intent);
 
         //액티비티(팝업) 닫기

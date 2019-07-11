@@ -29,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
     TextView Viewing;
     public String selected="1";
     public String murl="";
-
-
+    public String mname="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +47,15 @@ public class MainActivity extends AppCompatActivity {
         //------------------------------------------------------------------------------
         //
         //
-        //데이터베이스 가져오기
+        //1번 데이터베이스 가져오기
         //
-        //
+        //1번 카메라 DB가 존재하지 않는다면 가지고온다
         //
 
-        DBHelper mDbOpenHelper = new DBHelper(this);
-        mDbOpenHelper.open();
-
-        Cursor iCursor = mDbOpenHelper.selectColumns();
-        while(iCursor.moveToNext()){
-            String tempSelected = iCursor.getString(iCursor.getColumnIndex("selected"));
-            String temptitle = iCursor.getString(iCursor.getColumnIndex("title"));
-            String tempAddress = iCursor.getString(iCursor.getColumnIndex("address"));
-            if(tempSelected.equals("1")){
-                Viewing.setText(temptitle);
-                murl=tempAddress;
-            }
-        }
-
+        ifnotexist("1");
+        mname=getName("1");
+        murl=getAddress("1");
+        Viewing.setText(mname);
         //
         //
         //
@@ -83,6 +72,79 @@ public class MainActivity extends AppCompatActivity {
         //
         //
 
+    }
+
+    public void ifnotexist(String id){
+        boolean exists_one=searchtable(id);
+        if(exists_one==false){
+            DbOpenHelper mDbOpenHelper = new DbOpenHelper(this);
+            mDbOpenHelper.open();
+            mDbOpenHelper.create();
+
+            mDbOpenHelper.insertColumn(id,"카메라를 입력 해주세요"," ");
+            mDbOpenHelper.close();
+        }
+    }
+
+
+    public boolean searchtable(String IDs) {
+        DbOpenHelper mDbOpenHelper = new DbOpenHelper(this);
+        mDbOpenHelper.open();
+        mDbOpenHelper.create();
+
+        //읽어오기 IDs번 카메라
+        Cursor iCursor = mDbOpenHelper.selectColumns();
+        while (iCursor.moveToNext()) {
+            String tempID = iCursor.getString(iCursor.getColumnIndex("camid"));
+            String tempName = iCursor.getString(iCursor.getColumnIndex("camname"));
+            String tempAddress = iCursor.getString(iCursor.getColumnIndex("camaddress"));
+            if (tempID.equals(IDs)) {
+                mDbOpenHelper.close();
+                return true;
+            }
+        }
+        mDbOpenHelper.close();
+        return false;
+    }
+
+    public String getName(String id){
+        DbOpenHelper mDbOpenHelper = new DbOpenHelper(this);
+        mDbOpenHelper.open();
+        mDbOpenHelper.create();
+
+        //읽어오기 IDs번 카메라
+        Cursor iCursor = mDbOpenHelper.selectColumns();
+        while (iCursor.moveToNext()) {
+            String tempID = iCursor.getString(iCursor.getColumnIndex("camid"));
+            String tempName = iCursor.getString(iCursor.getColumnIndex("camname"));
+            String tempAddress = iCursor.getString(iCursor.getColumnIndex("camaddress"));
+            if (tempID.equals(id)) {
+                mDbOpenHelper.close();
+                return tempName;
+            }
+        }
+        mDbOpenHelper.close();
+        return "DB가 없습니다.";
+    }
+
+    public String  getAddress(String id){
+        DbOpenHelper mDbOpenHelper = new DbOpenHelper(this);
+        mDbOpenHelper.open();
+        mDbOpenHelper.create();
+
+        //읽어오기 IDs번 카메라
+        Cursor iCursor = mDbOpenHelper.selectColumns();
+        while (iCursor.moveToNext()) {
+            String tempID = iCursor.getString(iCursor.getColumnIndex("camid"));
+            String tempName = iCursor.getString(iCursor.getColumnIndex("camname"));
+            String tempAddress = iCursor.getString(iCursor.getColumnIndex("camaddress"));
+            if (tempID.equals(id)) {
+                mDbOpenHelper.close();
+                return tempAddress;
+            }
+        }
+        mDbOpenHelper.close();
+        return "DB가 없습니다.";
     }
 
     public void setWebView(String urls){
@@ -142,13 +204,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void cone(View v){
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT title,address FROM Cam WHERE selected='1'",null);
-
-        Viewing.setText(cursor.getString(0));
-        murl=cursor.getString(1);
-        setWebView(murl);
 
         one.setBackground(ContextCompat.getDrawable(this, R.drawable.c11));
         two.setBackground(ContextCompat.getDrawable(this, R.drawable.c2));
@@ -156,15 +211,13 @@ public class MainActivity extends AppCompatActivity {
         four.setBackground(ContextCompat.getDrawable(this, R.drawable.c4));
         five.setBackground(ContextCompat.getDrawable(this, R.drawable.c5));
         selected="1";
+        ifnotexist("1");
+        mname=getName("1");
+        murl=getAddress("1");
+        Viewing.setText(mname);
+        setWebView(murl);
     }
     public void ctwo(View v){
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT title,address FROM Cam WHERE selected='2'",null);
-
-        Viewing.setText(cursor.getString(0));
-        murl=cursor.getString(1);
-        setWebView(murl);
 
         one.setBackground(ContextCompat.getDrawable(this, R.drawable.c1));
         two.setBackground(ContextCompat.getDrawable(this, R.drawable.c21));
@@ -172,15 +225,13 @@ public class MainActivity extends AppCompatActivity {
         four.setBackground(ContextCompat.getDrawable(this, R.drawable.c4));
         five.setBackground(ContextCompat.getDrawable(this, R.drawable.c5));
         selected="2";
+        ifnotexist("2");
+        mname=getName("2");
+        murl=getAddress("2");
+        Viewing.setText(mname);
+        setWebView(murl);
     }
     public void cthree(View v){
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT title,address FROM Cam WHERE selected='3'",null);
-
-        Viewing.setText(cursor.getString(0));
-        murl=cursor.getString(1);
-        setWebView(murl);
 
         one.setBackground(ContextCompat.getDrawable(this, R.drawable.c1));
         two.setBackground(ContextCompat.getDrawable(this, R.drawable.c2));
@@ -188,15 +239,13 @@ public class MainActivity extends AppCompatActivity {
         four.setBackground(ContextCompat.getDrawable(this, R.drawable.c4));
         five.setBackground(ContextCompat.getDrawable(this, R.drawable.c5));
         selected="3";
+        ifnotexist("3");
+        mname=getName("3");
+        murl=getAddress("3");
+        Viewing.setText(mname);
+        setWebView(murl);
     }
     public void cfour(View v){
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT title,address FROM Cam WHERE selected='4'",null);
-
-        Viewing.setText(cursor.getString(0));
-        murl=cursor.getString(1);
-        setWebView(murl);
 
         one.setBackground(ContextCompat.getDrawable(this, R.drawable.c1));
         two.setBackground(ContextCompat.getDrawable(this, R.drawable.c2));
@@ -204,15 +253,14 @@ public class MainActivity extends AppCompatActivity {
         four.setBackground(ContextCompat.getDrawable(this, R.drawable.c41));
         five.setBackground(ContextCompat.getDrawable(this, R.drawable.c5));
         selected="4";
+        ifnotexist("4");
+        mname=getName("4");
+        murl=getAddress("4");
+        Viewing.setText(mname);
+        setWebView(murl);
     }
     public void cfive(View v){
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT title,address FROM Cam WHERE selected='5'",null);
 
-        Viewing.setText(cursor.getString(0));
-        murl=cursor.getString(1);
-        setWebView(murl);
 
         one.setBackground(ContextCompat.getDrawable(this, R.drawable.c1));
         two.setBackground(ContextCompat.getDrawable(this, R.drawable.c2));
@@ -220,6 +268,11 @@ public class MainActivity extends AppCompatActivity {
         four.setBackground(ContextCompat.getDrawable(this, R.drawable.c4));
         five.setBackground(ContextCompat.getDrawable(this, R.drawable.c51));
         selected="5";
+        ifnotexist("5");
+        mname=getName("5");
+        murl=getAddress("5");
+        Viewing.setText(mname);
+        setWebView(murl);
     }
 
 

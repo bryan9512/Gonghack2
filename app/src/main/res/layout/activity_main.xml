@@ -4,34 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".MainActivity"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_weight="0.2"
-        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/viewing_scene"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:gravity="center"
+            android:layout_weight="8"
             android:text="거실 카메라"
-            android:textSize="30sp"
-            android:textColor="@color/Titles"/>
+            android:textColor="@color/Titles"
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/input_scene"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|right"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
             android:background="@drawable/camicon"
-            android:onClick="mOnPopupClick"
-            />
+            android:onClick="mOnPopupClick" />
     </LinearLayout>
 
     <WebView
@@ -93,7 +96,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="27dp"
+        android:layout_height="18dp"
         android:layout_weight="0.2"
         android:gravity="bottom|center"
         android:padding="2dp"
